@@ -8,7 +8,7 @@ Study: https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/#introD
 class Graph(object):
     def __init__(self):
         self.graph = defaultdict(list)
-        self.indegree = dict(int)
+        self.indegree = defaultdict(int)
 
     # Directed graph
     def add_edge(self, src, dest):
@@ -145,6 +145,12 @@ class Graph(object):
     """
     BFS for connected Graph
     Study: https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
+
+► 1. In a standard BFS for Access Control, when is the exact right moment to add a node to the visited set to prevent massive queue duplication?
+A) Immediately after popping it from the queue.
+B) Immediately before appending it to the queue.
+C) After checking if it matches the target group.
+D) At the very end of the while loop.
     """
     def bfs_connected_graph(self, root):
         q = collections.deque()

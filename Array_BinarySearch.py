@@ -36,7 +36,7 @@ def BinarySearch_LowestIndex(array, valueToFind):
         mid = (low + high) / 2
         if array[mid] == valueToFind:
             print "Found value {0} at index: {1}... Still searching lower index".format(valueToFind, mid)
-            result = mid
+            result = mid        # Store this result and still continue to look for lower index
             high = mid - 1              ###### Tweak from regular BinarySearch: CONTINUE SEARCHING ON LEFT HALF
         elif array[mid] < valueToFind:
             print "search in right half"

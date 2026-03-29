@@ -20,16 +20,18 @@ class Solution:
         res = []    # res = [(1,1), (3,4)]
         begin = 0
         for i in range(1, N):   # Determine sequence by comparing with last number
-            if nums[i] == 1+nums[i-1]:    # VALID Sequence, continue....
+            # VALID WINDOW, Keep Expanding Right -> ..
+            if nums[i] == nums[i-1] + 1:
                 continue
 
-            # INVALID, process result and SHRINK window to restart
-            # A sequence just finished at i-1
+            # VALID Window Ended, Process results
             res.append((nums[begin], nums[i-1]))
 
-            # a new sequence begins now
+            # INVALID Window: Make it VALID again by Shrinking Left -> ..
+            # A new sequence begin now from i
             begin = i
         
+        # Edge Case
         # At the end, either begin is in middle or last, regardless add the last sequence
         res.append((nums[begin], nums[N-1]))
 

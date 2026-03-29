@@ -1,43 +1,62 @@
-def reverseWords(text: str) -> str:
-    rs = ""
+"""
+Immutable Strings in Python: Analysis & Refactoring
+--------------------------------------------------
+In Python, strings are IMMUTABLE. Every "modification" (like +=) actually 
+creates a brand new string object in memory. 
 
-    start = 0
-    for end, c in enumerate(text):
-        if c == " ":    # End of this word
-            if start == end:
-                start = end+1
-                continue
-            w = reverseStr(text[start:end])
-            rs += w     # reversed word
-            rs += " "   # space
-            start = end+1   # RESTART for next word
-    
-    # Last word will not have hit space, so reverse taht as wwell
-    w = reverseStr(text[start:])
-    rs += w
-    # rs += " " # No space for last word
+To manipulate strings efficiently (like reversing words), we typically 
+convert them to a LIST, perform operations, and then JOIN them back.
+"""
 
-    # Reverse entire string now
-    return reverseStr(rs)
+def reverse_str(text: str) -> str:
+    """Uses Python's slicing magic to reverse a string beautifully."""
+    return text[::-1]
 
-
-    """ reverseStr: Given a str, returns a reversed string """
-def reverseStr(text: str) -> str:
-    """TypeError: 'str' object does not support item assignment
-    Convert string into List for index operations!
+def reverse_words_manual(text: str) -> str:
     """
-    text = list(text)
-    start, end = 0, len(text)-1
-    while start < end:
-        text[start],text[end] = text[end], text[start]
-        start += 1
-        end -= 1
-    return "".join(text)    # Convert List to Str back!
+    Reverses the order of words using a clean, manual sliding-window approach.
+    This demonstrates how you'd handle the 'mutable' logic by building a new string.
+    """
+    words = []
+    current_word = []
+    
+    # Loop through the text to extract words
+    for char in text:
+        if char == " ":
+            if current_word:
+                words.append("".join(current_word))
+                current_word = []
+        else:
+            current_word.append(char)
+            
+    # Don't forget the final word!
+    if current_word:
+        words.append("".join(current_word))
+        
+    # Reverse the list of words and join with space
+    return " ".join(words[::-1])
 
-text = "Apple is Banana"
-print(reverseWords(text))
-text = "   Apple is Banana"     # leading spaces
-print(reverseWords(text))
-text = "Apple is Banana       "    # trailing spaces
-print(reverseWords(text))
+def reverse_words_pythonic(text: str) -> str:
+    """
+    The True 'Pythonic' way: Clear, concise, and state-of-the-art.
+    .split() handles all whitespace variations automatically.
+    """
+    return " ".join(text.split()[::-1])
 
+def main():
+    test_cases = [
+        "Apple is Banana",
+        "   Leading spaces",
+        "Trailing spaces   ",
+        "Multiple   Spaces   In   Between"
+    ]
+    
+    print(f"{'Original':<30} | {'Reversed (Beautifully)':<30}")
+    print("-" * 65)
+    
+    for text in test_cases:
+        result = reverse_words_pythonic(text)
+        print(f"{text:<30} | {result:<30}")
+
+if __name__ == "__main__":
+    main()

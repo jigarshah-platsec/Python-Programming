@@ -14,6 +14,13 @@ class Graph(object):
     def add_edge(self, src, dest):
         self.graph[src].append(dest)
 
+"""
+(Topological Sort), how do you definitively detect a cycle (deadlock)?
+A) The queue becomes empty before the while loop finishes.
+B) A node's in-degree drops below zero.
+C) The length of the final result list is less than num_packages.
+D) A node is added to the queue twice.
+"""
 class Solution():
     """
     BFS using minHeap queue
